@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/eliasreis54/dojot-manage-data#readme",
   "dependencies": {
+    "axios": "^0.18.0",
     "babel-cli": "^6.26.0",
     "babel-preset-es2015": "^6.24.1",
     "body-parser": "^1.18.3",
