@@ -24,6 +24,10 @@ var _template = require('./routers/template');
 
 var _template2 = _interopRequireDefault(_template);
 
+var _export = require('./routers/export');
+
+var _export2 = _interopRequireDefault(_export);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var app = (0, _express2.default)();
@@ -33,6 +37,7 @@ app.use(_users2.default);
 app.use(_flows2.default);
 app.use(_devices2.default);
 app.use(_template2.default);
+app.use(_export2.default);
 app.listen(3000, function () {
   console.log('server running on port 3000');
 });

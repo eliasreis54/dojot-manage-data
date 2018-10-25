@@ -1,13 +1,13 @@
 import { Router } from 'express';
 import requestDevice from '../services/requestsDevice';
 
-const getData = Router();
+const router = Router();
 
-getData.get('/device', (req, res) => {
+router.get('/device', (req, res) => {
   requestDevice()
     .then((devices) => {
       res.json(devices);
     });
 });
 
-export default getData;
+export default router;

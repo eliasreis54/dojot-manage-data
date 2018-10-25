@@ -1,13 +1,13 @@
 import { Router } from 'express';
 import requestFlow from '../services/requestsFlow';
 
-const getData = Router();
+const router = Router();
 
-getData.get('/flow', (req, res) => {
+router.get('/flow', (req, res) => {
   requestFlow()
     .then((flows) => {
       res.json(flows);
     });
 });
 
-export default getData;
+export default router;
