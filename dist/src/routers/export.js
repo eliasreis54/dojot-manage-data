@@ -12,12 +12,12 @@ var _requestExport2 = _interopRequireDefault(_requestExport);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var getData = (0, _express.Router)();
+var router = (0, _express.Router)();
 
-getData.get('/export', function (req, res) {
+router.get('/export', function (req, res) {
   (0, _requestExport2.default)().then(function (exportData) {
     res.json(exportData);
   });
 });
 
-exports.default = getData;
+exports.default = router;

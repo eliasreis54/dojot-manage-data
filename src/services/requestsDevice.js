@@ -3,7 +3,7 @@ import config from '../config';
 import Requests from '../utils/requests';
 
 const requestDevice = () => new Promise((resolve, reject) => {
-  Requests(`${config.device_manager_url}/device`)
+  Requests.makeRequest(`${config.device_manager_url}/device`)
     .then((obj) => {
       resolve(obj);
     })
@@ -12,4 +12,14 @@ const requestDevice = () => new Promise((resolve, reject) => {
     });
 });
 
-export default requestDevice;
+const postDevice = body => new Promise((resolve, reject) => {
+  Requests.makePost(`${config.device_manager_url}/device`, body)
+    .then((ret) => {
+      resolve(ret);
+    })
+    .catch((err) => {
+      reject(err);
+    });
+});
+
+export default { requestDevice, postDevice };

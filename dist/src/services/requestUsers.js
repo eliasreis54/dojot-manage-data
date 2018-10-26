@@ -16,7 +16,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var requestUser = function requestUser() {
   return new Promise(function (resolve, reject) {
-    (0, _requests2.default)(_config2.default.auth_url).then(function (obj) {
+    _requests2.default.makeRequest(_config2.default.auth_url).then(function (obj) {
       resolve(obj);
     }).catch(function (err) {
       reject(err);

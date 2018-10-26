@@ -19,4 +19,23 @@ const makeRequest = urlRequest => new Promise((resolve, reject) => {
     });
 });
 
-export default makeRequest;
+const makePost = (urlRequest, body) => new Promise((resolve, reject) => {
+  const token = generateToken();
+  axios({
+    method: 'post',
+    headers: {
+      authorization: token,
+      'content-type': 'application/json',
+    },
+    url: urlRequest,
+    data: body,
+  })
+    .then((ret) => {
+      resolve(ret);
+    })
+    .catch((err) => {
+      reject(err);
+    });
+});
+
+export default { makeRequest, makePost };

@@ -12,12 +12,20 @@ var _requestsTemplate2 = _interopRequireDefault(_requestsTemplate);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var getData = (0, _express.Router)();
+var router = (0, _express.Router)();
 
-getData.get('/template', function (req, res) {
-  (0, _requestsTemplate2.default)().then(function (templates) {
+router.get('/template', function (req, res) {
+  _requestsTemplate2.default.getTemplate().then(function (templates) {
     res.json(templates);
   });
 });
 
-exports.default = getData;
+router.post('/template', function (req, res) {
+  _requestsTemplate2.default.postTemplate(req.body).then(function (ret) {
+    res.json(ret);
+  }).catch(function (err) {
+    res.json(err);
+  });
+});
+
+exports.default = router;

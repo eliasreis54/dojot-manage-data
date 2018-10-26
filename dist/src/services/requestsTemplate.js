@@ -14,9 +14,9 @@ var _requests2 = _interopRequireDefault(_requests);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var requestTemplate = function requestTemplate() {
+var getTemplate = function getTemplate() {
   return new Promise(function (resolve, reject) {
-    (0, _requests2.default)(_config2.default.device_manager_url + '/template').then(function (obj) {
+    _requests2.default.makeRequest(_config2.default.device_manager_url + '/template').then(function (obj) {
       resolve(obj);
     }).catch(function (err) {
       reject(err);
@@ -24,4 +24,31 @@ var requestTemplate = function requestTemplate() {
   });
 };
 
-exports.default = requestTemplate;
+var postTemplate = function postTemplate(body) {
+  return new Promise(function (resolve, reject) {
+    var calls = [];
+    body.forEach(function (obj, index) {
+      var element = obj;
+      delete element.id;
+      element.label = element.label + ' + ' + index;
+      calls.push(_requests2.default.makePost(_config2.default.device_manager_url + '/template', element));
+    });
+
+    Promise.all(calls).then(function (ret) {
+      var control = [];
+      var dataRet = {};
+      ret.forEach(function (data, index) {
+        /* dataRet.oldId = body[index].id;
+        dataRet.newId = data.data.template.id;
+        dataRet.newObject = data.data.template;
+        control.push(dataRet); */
+        console.log(data.data);
+      });
+      console.log(dataRet);
+    }).catch(function (err) {
+      reject(err);
+    });
+  });
+};
+
+exports.default = { getTemplate: getTemplate, postTemplate: postTemplate };

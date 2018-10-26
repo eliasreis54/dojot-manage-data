@@ -12,12 +12,12 @@ var _requestUsers2 = _interopRequireDefault(_requestUsers);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var getData = (0, _express.Router)();
+var router = (0, _express.Router)();
 
-getData.get('/user', function (req, res) {
+router.get('/user', function (req, res) {
   (0, _requestUsers2.default)().then(function (users) {
     res.send(users);
   });
 });
 
-exports.default = getData;
+exports.default = router;

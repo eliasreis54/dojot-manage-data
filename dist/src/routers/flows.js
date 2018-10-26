@@ -12,12 +12,12 @@ var _requestsFlow2 = _interopRequireDefault(_requestsFlow);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var getData = (0, _express.Router)();
+var router = (0, _express.Router)();
 
-getData.get('/flow', function (req, res) {
+router.get('/flow', function (req, res) {
   (0, _requestsFlow2.default)().then(function (flows) {
     res.json(flows);
   });
 });
 
-exports.default = getData;
+exports.default = router;

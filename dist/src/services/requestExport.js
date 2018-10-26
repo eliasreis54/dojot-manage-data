@@ -16,11 +16,9 @@ var _requestsTemplate = require('./requestsTemplate');
 
 var _requestsTemplate2 = _interopRequireDefault(_requestsTemplate);
 
-var _requestUsers = require('./requestUsers');
-
-var _requestUsers2 = _interopRequireDefault(_requestUsers);
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+// import requestUser from './requestUsers';
 
 var requestExport = function requestExport() {
   return new Promise(function (resolve, reject) {

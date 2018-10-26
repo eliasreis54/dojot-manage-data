@@ -31,4 +31,23 @@ var makeRequest = function makeRequest(urlRequest) {
   });
 };
 
-exports.default = makeRequest;
+var makePost = function makePost(urlRequest, body) {
+  return new Promise(function (resolve, reject) {
+    var token = (0, _generateToken2.default)();
+    (0, _axios2.default)({
+      method: 'post',
+      headers: {
+        authorization: token,
+        'content-type': 'application/json'
+      },
+      url: urlRequest,
+      data: body
+    }).then(function (ret) {
+      resolve(ret);
+    }).catch(function (err) {
+      reject(err);
+    });
+  });
+};
+
+exports.default = { makeRequest: makeRequest, makePost: makePost };

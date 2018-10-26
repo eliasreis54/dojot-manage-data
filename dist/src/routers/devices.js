@@ -12,12 +12,20 @@ var _requestsDevice2 = _interopRequireDefault(_requestsDevice);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var getData = (0, _express.Router)();
+var router = (0, _express.Router)();
 
-getData.get('/device', function (req, res) {
-  (0, _requestsDevice2.default)().then(function (devices) {
+router.get('/device', function (req, res) {
+  _requestsDevice2.default.requestDevice().then(function (devices) {
     res.json(devices);
   });
 });
 
-exports.default = getData;
+router.post('/device', function (req, res) {
+  _requestsDevice2.default.postDevice(req.body).then(function (ret) {
+    res.json(ret);
+  }).catch(function (err) {
+    res.json(err);
+  });
+});
+
+exports.default = router;
