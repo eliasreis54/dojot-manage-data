@@ -16,23 +16,22 @@ const postTemplate = body => new Promise((resolve, reject) => {
   const calls = [];
   body.forEach((obj, index) => {
     const element = obj;
-    delete element.id;
     element.label = `${element.label} + ${index}`;
     calls.push(Requests.makePost(`${config.device_manager_url}/template`, element));
   });
 
   Promise.all(calls)
     .then((ret) => {
+      let dataRet = {};
       const control = [];
-      const dataRet = {};
       ret.forEach((data, index) => {
-        /* dataRet.oldId = body[index].id;
+        dataRet.oldId = body[index].id;
         dataRet.newId = data.data.template.id;
         dataRet.newObject = data.data.template;
-        control.push(dataRet); */
-        console.log(data.data);
+        control.push(dataRet);
+        dataRet = {};
       });
-      console.log(dataRet);
+      resolve(control);
     })
     .catch((err) => {
       reject(err);

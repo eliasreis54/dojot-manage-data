@@ -29,22 +29,21 @@ var postTemplate = function postTemplate(body) {
     var calls = [];
     body.forEach(function (obj, index) {
       var element = obj;
-      delete element.id;
       element.label = element.label + ' + ' + index;
       calls.push(_requests2.default.makePost(_config2.default.device_manager_url + '/template', element));
     });
 
     Promise.all(calls).then(function (ret) {
-      var control = [];
       var dataRet = {};
+      var control = [];
       ret.forEach(function (data, index) {
-        /* dataRet.oldId = body[index].id;
+        dataRet.oldId = body[index].id;
         dataRet.newId = data.data.template.id;
         dataRet.newObject = data.data.template;
-        control.push(dataRet); */
-        console.log(data.data);
+        control.push(dataRet);
+        dataRet = {};
       });
-      console.log(dataRet);
+      resolve(control);
     }).catch(function (err) {
       reject(err);
     });

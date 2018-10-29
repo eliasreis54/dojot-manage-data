@@ -24,7 +24,7 @@ router.post('/device', function (req, res) {
   _requestsDevice2.default.postDevice(req.body).then(function (ret) {
     res.json(ret);
   }).catch(function (err) {
-    res.json(err);
+    res.status(400).json(err.data);
   });
 });
 

@@ -26,10 +26,26 @@ var requestDevice = function requestDevice() {
 
 var postDevice = function postDevice(body) {
   return new Promise(function (resolve, reject) {
-    _requests2.default.makePost(_config2.default.device_manager_url + '/device', body).then(function (ret) {
-      resolve(ret);
+    var calls = [];
+    body.forEach(function (obj, index) {
+      var element = obj;
+      element.label = element.label + ' + ' + index;
+      calls.push(_requests2.default.makePost(_config2.default.device_manager_url + '/device', element));
+    });
+
+    Promise.all(calls).then(function (ret) {
+      var dataRet = {};
+      var control = [];
+      ret.forEach(function (data, index) {
+        dataRet.oldId = body[index].id;
+        dataRet.newId = data.data.devices[0].id;
+        dataRet.newObject = data.data.devices;
+        control.push(dataRet);
+        dataRet = {};
+      });
+      resolve(control);
     }).catch(function (err) {
-      reject(err);
+      reject(err.response);
     });
   });
 };

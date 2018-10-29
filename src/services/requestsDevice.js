@@ -13,12 +13,28 @@ const requestDevice = () => new Promise((resolve, reject) => {
 });
 
 const postDevice = body => new Promise((resolve, reject) => {
-  Requests.makePost(`${config.device_manager_url}/device`, body)
+  const calls = [];
+  body.forEach((obj, index) => {
+    const element = obj;
+    element.label = `${element.label} + ${index}`;
+    calls.push(Requests.makePost(`${config.device_manager_url}/device`, element));
+  });
+
+  Promise.all(calls)
     .then((ret) => {
-      resolve(ret);
+      let dataRet = {};
+      const control = [];
+      ret.forEach((data, index) => {
+        dataRet.oldId = body[index].id;
+        dataRet.newId = data.data.devices[0].id;
+        dataRet.newObject = data.data.devices;
+        control.push(dataRet);
+        dataRet = {};
+      });
+      resolve(control);
     })
     .catch((err) => {
-      reject(err);
+      reject(err.response);
     });
 });
 
