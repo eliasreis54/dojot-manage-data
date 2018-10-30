@@ -20,13 +20,41 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 // import requestUser from './requestUsers';
 
+function clearTemplateRet(template) {
+  template.forEach(function (obj) {
+    var item = obj;
+    delete item.created;
+    delete item.status;
+    delete item.templates;
+    delete item.data_attrs;
+    delete item.config_attrs;
+    item.attrs.forEach(function (attrs) {
+      var attr = attrs;
+      delete attr.created;
+      delete attr.template_id;
+      delete attr.id;
+    });
+  });
+  return template;
+}
+
+function clearDeviceRet(devices) {
+  devices.forEach(function (device) {
+    var item = device;
+    delete item.attrs;
+    delete item.created;
+    delete item.status;
+  });
+  return devices;
+}
+
 var requestExport = function requestExport() {
   return new Promise(function (resolve, reject) {
-    var requests = [(0, _requestsDevice2.default)(), (0, _requestsTemplate2.default)(), (0, _requestsFlow2.default)()];
+    var requests = [_requestsDevice2.default.requestDevice(), _requestsTemplate2.default.requestTemplate(), _requestsFlow2.default.requestFlows()];
     Promise.all(requests).then(function (ret) {
       var allData = {
-        devices: ret[0].devices,
-        templates: ret[1].templates,
+        devices: clearDeviceRet(ret[0].devices),
+        templates: clearTemplateRet(ret[1].templates),
         flows: ret[2].flows
       };
       resolve(allData);

@@ -2,7 +2,7 @@ import config from '../config';
 
 import Requests from '../utils/requests';
 
-const requestUser = () => new Promise((resolve, reject) => {
+const requestFlows = () => new Promise((resolve, reject) => {
   Requests.makeRequest(`${config.flow_broker_url}/v1/flow`)
     .then((obj) => {
       resolve(obj);
@@ -34,4 +34,4 @@ const postFlow = body => new Promise((resolve, reject) => {
 });
 
 
-export default { requestUser, postFlow };
+export default { requestFlows, postFlow };

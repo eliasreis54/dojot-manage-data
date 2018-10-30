@@ -14,7 +14,7 @@ var _requests2 = _interopRequireDefault(_requests);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var getTemplate = function getTemplate() {
+var requestTemplate = function requestTemplate() {
   return new Promise(function (resolve, reject) {
     _requests2.default.makeRequest(_config2.default.device_manager_url + '/template').then(function (obj) {
       resolve(obj);
@@ -49,4 +49,4 @@ var postTemplate = function postTemplate(body) {
   });
 };
 
-exports.default = { getTemplate: getTemplate, postTemplate: postTemplate };
+exports.default = { requestTemplate: requestTemplate, postTemplate: postTemplate };

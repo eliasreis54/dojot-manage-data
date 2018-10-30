@@ -14,7 +14,7 @@ var _requests2 = _interopRequireDefault(_requests);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var requestUser = function requestUser() {
+var requestFlows = function requestFlows() {
   return new Promise(function (resolve, reject) {
     _requests2.default.makeRequest(_config2.default.flow_broker_url + '/v1/flow').then(function (obj) {
       resolve(obj);
@@ -44,4 +44,4 @@ var postFlow = function postFlow(body) {
   });
 };
 
-exports.default = { requestUser: requestUser, postFlow: postFlow };
+exports.default = { requestFlows: requestFlows, postFlow: postFlow };

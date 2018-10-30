@@ -2,7 +2,7 @@ import config from '../config';
 
 import Requests from '../utils/requests';
 
-const getTemplate = () => new Promise((resolve, reject) => {
+const requestTemplate = () => new Promise((resolve, reject) => {
   Requests.makeRequest(`${config.device_manager_url}/template`)
     .then((obj) => {
       resolve(obj);
@@ -37,4 +37,4 @@ const postTemplate = body => new Promise((resolve, reject) => {
     });
 });
 
-export default { getTemplate, postTemplate };
+export default { requestTemplate, postTemplate };
