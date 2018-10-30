@@ -27,9 +27,8 @@ var requestDevice = function requestDevice() {
 var postDevice = function postDevice(body) {
   return new Promise(function (resolve, reject) {
     var calls = [];
-    body.forEach(function (obj, index) {
+    body.forEach(function (obj) {
       var element = obj;
-      element.label = element.label + ' + ' + index;
       calls.push(_requests2.default.makePost(_config2.default.device_manager_url + '/device', element));
     });
 

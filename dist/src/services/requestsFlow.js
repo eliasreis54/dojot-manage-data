@@ -24,4 +24,24 @@ var requestUser = function requestUser() {
   });
 };
 
-exports.default = requestUser;
+var postFlow = function postFlow(body) {
+  return new Promise(function (resolve, reject) {
+    var calls = [];
+    body.forEach(function (obj) {
+      var element = obj;
+      calls.push(_requests2.default.makePost(_config2.default.flow_broker_url + '/v1/flow', element));
+    });
+
+    Promise.all(calls).then(function (flows) {
+      var ret = [];
+      flows.forEach(function (item) {
+        ret.push(item.data);
+      });
+      resolve(ret);
+    }).catch(function (err) {
+      reject(err);
+    });
+  });
+};
+
+exports.default = { requestUser: requestUser, postFlow: postFlow };

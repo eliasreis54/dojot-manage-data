@@ -14,9 +14,8 @@ const requestDevice = () => new Promise((resolve, reject) => {
 
 const postDevice = body => new Promise((resolve, reject) => {
   const calls = [];
-  body.forEach((obj, index) => {
+  body.forEach((obj) => {
     const element = obj;
-    element.label = `${element.label} + ${index}`;
     calls.push(Requests.makePost(`${config.device_manager_url}/device`, element));
   });
 

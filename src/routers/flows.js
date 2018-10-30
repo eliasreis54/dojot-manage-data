@@ -10,4 +10,11 @@ router.get('/flow', (req, res) => {
     });
 });
 
+router.post('/flow', (req, res) => {
+  requestFlow.postFlow(req.body)
+    .then((flows) => {
+      res.status(200).json(flows.data);
+    });
+});
+
 export default router;

@@ -5,8 +5,11 @@ const router = Router();
 
 router.post('/import', (req, res) => {
   requestImport.postImport(req.body)
-    .then((exportData) => {
-      res.json(exportData);
+    .then((ret) => {
+      res.status(200).json(ret);
+    })
+    .catch((err) => {
+      res.status(400).json(err);
     });
 });
 

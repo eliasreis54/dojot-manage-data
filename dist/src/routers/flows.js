@@ -20,4 +20,10 @@ router.get('/flow', function (req, res) {
   });
 });
 
+router.post('/flow', function (req, res) {
+  _requestsFlow2.default.postFlow(req.body).then(function (flows) {
+    res.status(200).json(flows.data);
+  });
+});
+
 exports.default = router;
