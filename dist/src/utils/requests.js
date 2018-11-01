@@ -50,4 +50,22 @@ var makePost = function makePost(urlRequest, body) {
   });
 };
 
-exports.default = { makeRequest: makeRequest, makePost: makePost };
+var makeDelete = function makeDelete(urlRequest) {
+  return new Promise(function (resolve, reject) {
+    var token = (0, _generateToken2.default)();
+    (0, _axios2.default)({
+      method: 'delete',
+      headers: {
+        authorization: token,
+        'content-type': 'application/json'
+      },
+      url: urlRequest
+    }).then(function (ret) {
+      resolve(ret);
+    }).catch(function (err) {
+      reject(err);
+    });
+  });
+};
+
+exports.default = { makeRequest: makeRequest, makePost: makePost, makeDelete: makeDelete };

@@ -44,7 +44,7 @@ var postDevice = function postDevice(body) {
       });
       resolve(control);
     }).catch(function (err) {
-      reject(err.response);
+      reject(err);
     });
   });
 };

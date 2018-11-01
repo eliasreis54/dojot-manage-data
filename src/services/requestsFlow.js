@@ -8,7 +8,7 @@ const requestFlows = () => new Promise((resolve, reject) => {
       resolve(obj);
     })
     .catch((err) => {
-      reject(err.toString());
+      reject(err);
     });
 });
 
@@ -29,6 +29,7 @@ const postFlow = body => new Promise((resolve, reject) => {
       resolve(ret);
     })
     .catch((err) => {
+      console.log(err);
       reject(err);
     });
 });

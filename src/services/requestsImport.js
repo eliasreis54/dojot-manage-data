@@ -1,6 +1,14 @@
 import requestsDevice from './requestsDevice';
 import requestsTemplate from './requestsTemplate';
 import requestFlow from './requestsFlow';
+import requests from '../utils/requests';
+import config from '../config';
+
+async function deleteAllData() {
+  await requests.makeDelete(`${config.device_manager_url}/deletealldevice`);
+  await requests.makeDelete(`${config.device_manager_url}/deletealltemplates`);
+  await requests.makeDelete(`${config.flow_broker_url}/v1/flow`);
+}
 
 function changeIdTemplateDevice(newsIdTemplate, devices) {
   const deviceList = devices;
@@ -54,7 +62,8 @@ function changeIdTemplateFlow(newflows, flows) {
   return flowsList;
 }
 
-const postImport = data => new Promise((resolve, reject) => {
+const postImport = data => new Promise(async (resolve, reject) => {
+  await deleteAllData();
   const body = data;
   requestsTemplate.postTemplate(body.templates)
     .then((templates) => {

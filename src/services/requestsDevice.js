@@ -33,7 +33,7 @@ const postDevice = body => new Promise((resolve, reject) => {
       resolve(control);
     })
     .catch((err) => {
-      reject(err.response);
+      reject(err);
     });
 });
 

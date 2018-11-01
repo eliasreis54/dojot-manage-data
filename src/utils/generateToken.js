@@ -4,4 +4,6 @@ const generateToken = () => {
     '.' + (new Buffer('dummy signature').toString('base64'));
 };
 
+// console.log(generateToken());
+
 export default generateToken;

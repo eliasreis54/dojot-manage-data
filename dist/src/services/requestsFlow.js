@@ -19,7 +19,7 @@ var requestFlows = function requestFlows() {
     _requests2.default.makeRequest(_config2.default.flow_broker_url + '/v1/flow').then(function (obj) {
       resolve(obj);
     }).catch(function (err) {
-      reject(err.toString());
+      reject(err);
     });
   });
 };
@@ -39,6 +39,7 @@ var postFlow = function postFlow(body) {
       });
       resolve(ret);
     }).catch(function (err) {
+      console.log(err);
       reject(err);
     });
   });
