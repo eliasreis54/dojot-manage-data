@@ -29,7 +29,6 @@ const postFlow = body => new Promise((resolve, reject) => {
       resolve(ret);
     })
     .catch((err) => {
-      console.log(err);
       reject(err);
     });
 });

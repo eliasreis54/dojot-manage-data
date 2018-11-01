@@ -45,7 +45,7 @@ var makePost = function makePost(urlRequest, body) {
     }).then(function (ret) {
       resolve(ret);
     }).catch(function (err) {
-      reject(err);
+      reject(err.toString());
     });
   });
 };

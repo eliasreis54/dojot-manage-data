@@ -39,7 +39,6 @@ var postFlow = function postFlow(body) {
       });
       resolve(ret);
     }).catch(function (err) {
-      console.log(err);
       reject(err);
     });
   });

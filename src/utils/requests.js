@@ -34,7 +34,7 @@ const makePost = (urlRequest, body) => new Promise((resolve, reject) => {
       resolve(ret);
     })
     .catch((err) => {
-      reject(err);
+      reject(err.toString());
     });
 });
 
