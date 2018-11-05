@@ -4,6 +4,8 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
+var _dojotModuleLogger = require('@dojot/dojot-module-logger');
+
 var _requestsDevice = require('./requestsDevice');
 
 var _requestsDevice2 = _interopRequireDefault(_requestsDevice);
@@ -50,6 +52,7 @@ function clearDeviceRet(devices) {
 
 var requestExport = function requestExport() {
   return new Promise(function (resolve, reject) {
+    _dojotModuleLogger.logger.debug('Call received');
     var requests = [_requestsDevice2.default.requestDevice(), _requestsTemplate2.default.requestTemplate(), _requestsFlow2.default.requestFlows()];
     Promise.all(requests).then(function (ret) {
       var allData = {
