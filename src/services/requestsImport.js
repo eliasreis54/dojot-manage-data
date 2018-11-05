@@ -80,6 +80,18 @@ const postImport = data => new Promise(async (resolve, reject) => {
           body.flows = changeIdTemplateFlow(templates, body.flows);
           requestFlow.postFlow(body.flows)
             .then((newflows) => {
+              const bodyTemplates = body.templates;
+              body.templates = [];
+              bodyTemplates.forEach((item) => {
+                body.templates.push(item.newObject);
+              });
+
+              const bodyDevices = body.devices;
+              body.devices = [];
+              bodyDevices.forEach((item) => {
+                body.devices.push(item.newObject);
+              });
+
               body.flows = newflows;
               resolve(body);
             })
