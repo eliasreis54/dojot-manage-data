@@ -42,6 +42,7 @@ const requestExport = () => new Promise((resolve, reject) => {
   ];
   Promise.all(requests)
     .then((ret) => {
+      logger.debug('Data received.');
       const allData = {
         devices: clearDeviceRet(ret[0].devices),
         templates: clearTemplateRet(ret[1].templates),
@@ -50,6 +51,7 @@ const requestExport = () => new Promise((resolve, reject) => {
       resolve(allData);
     })
     .catch((err) => {
+      logger.debug(`Received error ${err}. Rejecting the request`);
       reject(err);
     });
 });

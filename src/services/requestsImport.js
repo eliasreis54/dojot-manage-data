@@ -1,3 +1,4 @@
+import { logger } from '@dojot/dojot-module-logger';
 import requestsDevice from './requestsDevice';
 import requestsTemplate from './requestsTemplate';
 import requestFlow from './requestsFlow';
@@ -5,8 +6,11 @@ import requests from '../utils/requests';
 import config from '../config';
 
 async function deleteAllData() {
+  logger.debug('Deleting all devices.');
   await requests.makeDelete(`${config.device_manager_url}/device`);
+  logger.debug('Deleting all templates.');
   await requests.makeDelete(`${config.device_manager_url}/template`);
+  logger.debug('Deleting all flows.');
   await requests.makeDelete(`${config.flow_broker_url}/v1/flow`);
 }
 
@@ -62,7 +66,12 @@ function changeIdTemplateFlow(newflows, flows) {
   return flowsList;
 }
 
+/**
+ * @param {array} data data array to be imported on dojot, like the exported object.
+ * @returns {array} return the imported objects on dojot.
+ */
 const postImport = data => new Promise(async (resolve, reject) => {
+  logger.debug('Will import data.');
   try {
     await deleteAllData();
   } catch (error) {
@@ -71,15 +80,18 @@ const postImport = data => new Promise(async (resolve, reject) => {
   const body = data;
   requestsTemplate.postTemplate(body.templates)
     .then((templates) => {
+      logger.debug('Templates imported.');
       body.templates = templates;
       body.devices = changeIdTemplateDevice(templates, body.devices);
       requestsDevice.postDevice(body.devices)
         .then((devices) => {
+          logger.debug('Devices imported.');
           body.devices = devices;
           body.flows = changeIdDeviceFlow(devices, body.flows);
           body.flows = changeIdTemplateFlow(templates, body.flows);
           requestFlow.postFlow(body.flows)
             .then((newflows) => {
+              logger.debug('Flows imported.');
               const bodyTemplates = body.templates;
               body.templates = [];
               bodyTemplates.forEach((item) => {
@@ -93,17 +105,21 @@ const postImport = data => new Promise(async (resolve, reject) => {
               });
 
               body.flows = newflows;
+              logger.debug('Resolving importation.');
               resolve(body);
             })
             .catch((err) => {
+              logger.debug(`Received error on import flows, ${err}. Rejecting the request`);
               reject(err);
             });
         })
         .catch((err) => {
+          logger.debug(`Received error on import Devices, ${err}. Rejecting the request`);
           reject(err);
         });
     })
     .catch((err) => {
+      logger.debug(`Received error on import Templates, ${err}. Rejecting the request`);
       reject(err);
     });
 });

@@ -52,9 +52,10 @@ function clearDeviceRet(devices) {
 
 var requestExport = function requestExport() {
   return new Promise(function (resolve, reject) {
-    _dojotModuleLogger.logger.debug('Call received');
+    _dojotModuleLogger.logger.debug('Will export data');
     var requests = [_requestsDevice2.default.requestDevice(), _requestsTemplate2.default.requestTemplate(), _requestsFlow2.default.requestFlows()];
     Promise.all(requests).then(function (ret) {
+      _dojotModuleLogger.logger.debug('Data received.');
       var allData = {
         devices: clearDeviceRet(ret[0].devices),
         templates: clearTemplateRet(ret[1].templates),
@@ -62,6 +63,7 @@ var requestExport = function requestExport() {
       };
       resolve(allData);
     }).catch(function (err) {
+      _dojotModuleLogger.logger.debug('Received error ' + err + '. Rejecting the request');
       reject(err);
     });
   });
