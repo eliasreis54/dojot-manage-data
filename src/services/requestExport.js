@@ -1,6 +1,8 @@
+import { logger } from '@dojot/dojot-module-logger';
 import requestDevice from './requestsDevice';
 import requestFlow from './requestsFlow';
 import requestTemplate from './requestsTemplate';
+
 // import requestUser from './requestUsers';
 
 function clearTemplateRet(template) {
@@ -32,6 +34,7 @@ function clearDeviceRet(devices) {
 }
 
 const requestExport = () => new Promise((resolve, reject) => {
+  logger.debug('Will export data');
   const requests = [
     requestDevice.requestDevice(),
     requestTemplate.requestTemplate(),
@@ -39,6 +42,7 @@ const requestExport = () => new Promise((resolve, reject) => {
   ];
   Promise.all(requests)
     .then((ret) => {
+      logger.debug('Data received.');
       const allData = {
         devices: clearDeviceRet(ret[0].devices),
         templates: clearTemplateRet(ret[1].templates),
@@ -47,6 +51,7 @@ const requestExport = () => new Promise((resolve, reject) => {
       resolve(allData);
     })
     .catch((err) => {
+      logger.debug(`Received error ${err}. Rejecting the request`);
       reject(err);
     });
 });
